@@ -54,8 +54,10 @@
             });
 
             //绑定一个上传成功的事件
-            uploader.on('uploadSuccess', function(){
-
+            uploader.on('uploadSuccess', function(file, response){
+                //上传成功，获得上传后的图片url路径
+                alert("上传成功！");
+                $("#img_hide").val(response.imgpath);
             });
 
             //绑定一个上传失败的事件
@@ -83,6 +85,8 @@
                             <label>商品图片</label>
                             <img id="img" src="resources/images/icons/header.jpg" style="width: 100px; height: 100px;"/>
                             <div id="select_div">选择图片</div>
+                            <!-- 保存上传图片的url的隐藏域 -->
+                            <input id="img_hide" name="gimage" type="hidden"/>
                         </p>
                         <p>
                             <label>库存</label> <input
@@ -102,7 +106,7 @@
                         <p>
                             <label>描述</label>
                             <textarea class="text-input textarea wysiwyg" id="textarea"
-                                      name="textfield" cols="79" rows="15"></textarea>
+                                      name="ginfo" cols="79" rows="15"></textarea>
                         </p>
                         <p>
                             <input class="mybutton" type="submit" value="添加商品" />

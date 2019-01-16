@@ -22,6 +22,7 @@
     <!-- jQuery Configuration -->
     <script type="text/javascript"
             src="resources/scripts/simpla.jquery.configuration.js"></script>
+    <script type="text/javascript" src="resources/scripts/my.js"></script>
 </head>
 <body>
 <div id="main-content">
@@ -45,7 +46,7 @@
                         <tr th:each="good : ${goods}">
                             <td><input type="checkbox" /></td>
                             <td th:text="${good.title}">Lorem ipsum dolor</td>
-                            <td th:text="${good.gimage}"></td>
+                            <td><img th:src="${fdfsPath + good.gimage}" style="width: 120px; height: 90px"/></td>
                             <td th:text="${good.price}">Consectetur adipiscing</td>
                             <td th:text="${good.gcount}">Donec tortor diam</td>
                             <td>

@@ -23,4 +23,10 @@ public class GoodsServiceImpl implements IGoodsService {
     public List<Goods> queryAll() {
         return goodsDao.selectList(null);
     }
+
+    @Override
+    public Goods insert(Goods goods) {
+        goodsDao.insert(goods);
+        return goods;
+    }
 }
