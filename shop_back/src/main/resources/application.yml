@@ -1,6 +1,10 @@
 spring:
   thymeleaf:
     cache: false
+  #修改Spring上传的最大文件限制
+  servlet:
+    multipart:
+      max-file-size: 10MB
 server:
   port: 8080
 dubbo:
@@ -8,3 +12,12 @@ dubbo:
     name: shop_back
   registry:
     address: zookeeper://192.168.226.180:2181
+#配置fdfs
+fdfs:
+  tracker-list: 192.168.226.180:22122
+  thumb-image:
+    width: 100
+    height: 100
+  pool:
+    jmx-enabled: false
+  serverpath: http://192.168.226.180/
