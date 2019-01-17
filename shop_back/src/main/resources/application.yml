@@ -1,6 +1,10 @@
 spring:
   thymeleaf:
     cache: false
+  #修改Spring上传的最大文件限制
+  servlet:
+    multipart:
+      max-file-size: 10MB
 server:
   port: 8080
 dubbo:
