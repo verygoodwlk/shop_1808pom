@@ -6,6 +6,7 @@ import com.qf.dao.IGoodsDao;
 import com.qf.entity.Goods;
 import com.qf.service.IGoodsService;
 import com.qf.service.ISearchService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class GoodsServiceImpl implements IGoodsService {
     @Reference
     private ISearchService searchService;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
     @Override
     public List<Goods> queryAll() {
         return goodsDao.selectList(null);
@@ -39,6 +43,9 @@ public class GoodsServiceImpl implements IGoodsService {
         //将商品信息同步到索引库中
         searchService.insertIndexed(goods);
 
+        //通知详情工程生成静态页 - 提供方
+        //将goods对象发送到消息队列中
+        rabbitTemplate.convertAndSend("goods_exchange", "", goods);
         return goods;
     }
 }

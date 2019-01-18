@@ -1,2 +1,9 @@
 server:
   port: 8085
+spring:
+  rabbitmq:
+    host: 192.168.226.180
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: /admin
