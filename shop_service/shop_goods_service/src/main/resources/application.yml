@@ -6,6 +6,12 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    host: 192.168.226.180
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: /admin
 dubbo:
   application:
     name: goods_service

@@ -376,7 +376,7 @@
             <ul>
                 <li th:each = "goods : ${goodslist}">
                     <dl>
-                        <dt><a href=""><img th:src="${'http://192.168.226.180/' + goods.gimage}" style="width: 170px; height: 170px" src="images/21151da3bdefc6d9a7120c991fe59800.jpg_small.jpg" /></a></dt>
+                        <dt><a th:href="${'http://localhost:8085/page/' + goods.id + '.html'}"><img th:src="${'http://192.168.226.180/' + goods.gimage}" style="width: 170px; height: 170px" src="images/21151da3bdefc6d9a7120c991fe59800.jpg_small.jpg" /></a></dt>
                         <dd class="title"><a href="" th:text="${goods.title}">OCIAIZO春装水洗做旧短外套复古磨白短款牛仔外套春01C1417</a></dd>
                         <dd class="content">
                             <span class="goods_jiage">￥<strong th:text="${goods.price}">249.00</strong></span>
