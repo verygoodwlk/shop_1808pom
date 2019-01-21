@@ -12,3 +12,5 @@ dubbo:
   protocol:
     name: dubbo
     port: -1
+  provider:
+    timeout: 10000

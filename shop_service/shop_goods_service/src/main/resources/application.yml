@@ -22,3 +22,5 @@ dubbo:
   #当前服务作为消费者时，不检查提供者是否启动
   consumer:
     check: false
+  provider:
+    timeout: 10000
