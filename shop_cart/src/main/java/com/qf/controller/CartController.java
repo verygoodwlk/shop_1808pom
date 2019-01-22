@@ -19,7 +19,7 @@ public class CartController {
      * 添加购物车 - AOP
      * @return
      */
-    @IsLogin(tologin = true)
+    @IsLogin
     @RequestMapping("/add")
     public String addCart(Integer gid, Integer gnumber, User user){
         System.out.println("需要添加的购物车信息：" + gid + " " + gnumber);
