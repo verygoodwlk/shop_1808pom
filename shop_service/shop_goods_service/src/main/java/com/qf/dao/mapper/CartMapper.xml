@@ -22,4 +22,12 @@
       select * from shopcart s join goods g on s.gid = g.id
         where s.uid = #{uid}
     </select>
+
+    <select id="queryCartsByIds" resultMap="BaseResultMap">
+        select * from shopcart s join goods g on s.gid = g.id
+          where s.id in
+        <foreach collection="cids" item="cid" open="(" close=")" separator="," >
+          #{cid}
+        </foreach>
+    </select>
 </mapper>

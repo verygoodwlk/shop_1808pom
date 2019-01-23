@@ -1,0 +1,14 @@
+server:
+  port: 8089
+spring:
+  redis:
+    host: 192.168.226.180
+  thymeleaf:
+    cache: false
+dubbo:
+  application:
+    name: shop_order
+  registry:
+    address: zookeeper://192.168.226.180:2181
+  protocol:
+    port: -1

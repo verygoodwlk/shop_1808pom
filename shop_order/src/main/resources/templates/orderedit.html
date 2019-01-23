@@ -12,6 +12,39 @@
     <script type="text/javascript" src="js/topNav.js" ></script>
     <script type="text/javascript" src="js/jquery.goodnums.js" ></script>
     <script type="text/javascript" src="js/shop_gouwuche.js" ></script>
+
+    <style type="text/css">
+        .shop_bd_shdz_title{width:1000px; margin-top: 10px; height:50px; line-height: 50px; overflow: hidden; background-color:#F8F8F8;}
+        .shop_bd_shdz_title h3{width:120px; text-align: center; height:40px; line-height: 40px; font-size: 14px; font-weight: bold;  background:#FFF; border:1px solid #E8E8E8; border-radius:4px 4px 0 0; float: left;  position: relative; top:10px; left:10px; border-bottom: none;}
+        .shop_bd_shdz_title p{float: right;}
+        .shop_bd_shdz_title p a{margin:0 8px; color:#555555;}
+
+        .shop_bd_shdz_lists{width:1000px;}
+        .shop_bd_shdz_lists ul{width:1000px;}
+        .shop_bd_shdz_lists ul li{width:980px; border-radius: 3px; margin:5px 0; padding-left:18px; line-height: 40px; height:40px; border:1px solid #FFE580; background-color:#FFF5CC;}
+        .shop_bd_shdz_lists ul li label{color:#626A73; font-weight: bold;}
+        .shop_bd_shdz_lists ul li label span{padding:10px;}
+        .shop_bd_shdz_lists ul li em{margin:0 4px; color:#626A73;}
+
+        .shop_bd_shdz{width:1000px; margin:10px auto 0;}
+        .shop_bd_shdz_new{border:1px solid #ccc; width:998px;}
+        .shop_bd_shdz_new div.title{width:990px; padding-left:8px; line-height:35px; height:35px; border-bottom:1px solid #ccc; background-color:#F2F2F2; font-color:#656565; font-weight: bold; font-size:14px;}
+        .shdz_new_form{width:980px; padding:9px;}
+        .shdz_new_form ul{width:100%;}
+        .shdz_new_form ul li{clear:both; width:100%; padding:5px 0; height:25px; line-height: 25px;}
+        .shdz_new_form ul li label{float:left;width:100px; text-align: right; padding-right: 10px;}
+        .shdz_new_form ul li label span{color:#f00; font-weight: bold; font-size:14px; position: relative; left:-3px; top:2px;}
+    </style>
+
+    <script type="text/javascript">
+        jQuery(function(){
+            jQuery("#new_add_shdz_btn").toggle(function(){
+                jQuery("#new_add_shdz_contents").show(500);
+            },function(){
+                jQuery("#new_add_shdz_contents").hide(500);
+            });
+        });
+    </script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -169,44 +202,99 @@
 
 <!-- 购物车 Body -->
 <div class="shop_gwc_bd clearfix">
-    <!-- 在具体实现的时候，根据情况选择其中一种情况 -->
-    <!-- 购物车为空 -->
-    <div th:if="${carts == null || #lists.size(carts) == 0}" class="empty_cart mb10">
-        <div class="message">
-            <p>购物车内暂时没有商品，您可以<a href="index.html">去首页</a>挑选喜欢的商品</p>
-        </div>
-    </div>
-    <!-- 购物车为空 end-->
+    <div class="shop_gwc_bd_contents clearfix">
 
-    <!-- 购物车有商品 -->
-    <div th:unless="${carts == null || #lists.size(carts) == 0}" class="shop_gwc_bd_contents clearfix">
         <!-- 购物流程导航 -->
         <div class="shop_gwc_bd_contents_lc clearfix">
             <ul>
-                <li class="step_a hover_a">确认购物清单</li>
-                <li class="step_b">确认收货人资料及送货方式</li>
+                <li class="step_a">确认购物清单</li>
+                <li class="step_b hover_b">确认收货人资料及送货方式</li>
                 <li class="step_c">购买完成</li>
             </ul>
         </div>
         <!-- 购物流程导航 End -->
+        <div class="clear"></div>
+        <!-- 收货地址 title -->
+        <div class="shop_bd_shdz_title">
+            <h3>收货人地址</h3>
+            <p><a href="javasrcipt:void(0);" id="new_add_shdz_btn">新增收货地址</a><a href="javascript:void(0);">管理收货地址</a></p>
+        </div>
+        <div class="clear"></div>
+        <!-- 收货人地址 Title End -->
+        <div class="shop_bd_shdz clearfix">
+            <div class="shop_bd_shdz_lists clearfix">
+                <ul>
+                    <li th:each="address : ${addresses}">
+                        <label>寄送至：
+                            <span th:if="${address.isdefault == 1}">
+                                <input type="radio" name="aid" th:value="${address.id}" checked />
+                            </span>
+                            <span th:unless="${address.isdefault == 1}">
+                                <input type="radio" name="aid" th:value="${address.id}" />
+                            </span>
+                        </label>
+                        <em th:text="${address.address}"></em>
+                        <em th:text="${address.person + '(收)'}">王超平(收)</em>
+                        <em th:text="${address.phone}">1336699232</em>
+                    </li>
+                </ul>
+            </div>
+            <!-- 新增收货地址 -->
+            <div id="new_add_shdz_contents" style="display:none;" class="shop_bd_shdz_new clearfix">
+                <div class="title">新增收货地址</div>
+                <div class="shdz_new_form">
+                    <form id="formid">
+                        <ul>
+                            <li><label ><span>*</span>收货人姓名：</label><input type="text" name="person" /></li>
+                            <li><label ><span>*</span>详细地址：</label><input type="text" name="address" /></li>
+                            <li><label ><span></span>邮政编码：</label><input type="text" name="code" /></li>
+                            <li><label ><span></span>手机号：</label><input type="text" name="phone" /></li>
+                            <li><label ><span></span>是否默认：</label>
+                                <input type="radio" name="isdefault" value="1"/>是
+                                <input type="radio" name="isdefault" value="0" checked/>否
+                            </li>
+                            <li><label >&nbsp;</label><input type="button" onclick="addAddress();" value="增加收货地址" /></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <!-- 新增收货地址 End -->
+        </div>
 
+
+        <script>
+            function addAddress(){
+                $.ajax({
+                    url: "addr/insert",
+                    data: $("#formid").serialize(),
+                    success: function(data){
+                        //js 将新的地址写入列表中
+                        location.reload();//刷新
+                    }
+                });
+            }
+        </script>
+
+        <div class="clear"></div>
         <!-- 购物车列表 -->
-        <form action="http://localhost:8089/order/edit" method="get">
+        <div class="shop_bd_shdz_title">
+            <h3>确认购物清单</h3>
+        </div>
+        <div class="clear"></div>
         <table>
             <thead>
             <tr>
-                <th><input type="checkbox" /></th>
                 <th colspan="2"><span>商品</span></th>
                 <th><span>单价(元)</span></th>
                 <th><span>数量</span></th>
                 <th><span>小计</span></th>
-                <!--<th><span>操作</span></th>-->
+                <th><span>操作</span></th>
             </tr>
             </thead>
             <tbody>
 
             <tr th:each="cart : ${carts}">
-                <td><input type="checkbox" name="gid" th:value="${cart.gid}" onclick="selectCart(this);"/></td>
+                <input type="hidden" name="cid" th:value="${cart.id}"/>
                 <td class="gwc_list_pic"><a href=""><img style="width: 80px; height: 70px" th:src="${'http://192.168.226.180/' + cart.goods.gimage}" src="images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
                 <td class="gwc_list_title"><a href="" th:text="${cart.goods.title}">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
                 <td class="gwc_list_danjia"><span>￥<strong id="danjia_001" th:text="${cart.goods.price}">2550.00</strong></span></td>
@@ -218,45 +306,52 @@
                 <!--<td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>-->
             </tr>
 
-            <script>
-                function selectCart(ele){
-                    var gid = ele.value;
-                    //获取小计的价格
-                    var xiaojipirce = $("#xiaoji_" + gid).html();
-                    //获取总价
-                    var allprice = $("#good_zongjia").html();
-                    //总价进行累加
-                    if(ele.checked){
-                        allprice = parseFloat(allprice) + parseFloat(xiaojipirce);
-                    } else {
-                        allprice = parseFloat(allprice) - parseFloat(xiaojipirce);
-                    }
-
-                    //将总价设置回标签
-                    $("#good_zongjia").html(allprice);
-                }
-            </script>
-
             </tbody>
             <tfoot>
             <tr>
                 <td colspan="6">
-                    <div class="gwc_foot_zongjia">商品总价(不含运费)<span>￥<strong id="good_zongjia">0.00</strong></span></div>
+                    <div class="gwc_foot_zongjia">商品总价(不含运费)<span>￥<strong id="good_zongjia">12750.00</strong></span></div>
                     <div class="clear"></div>
                     <div class="gwc_foot_links">
-                        <a href="" class="go">继续购物</a>
-                        <!--<a href="" class="op">确认并填写订单</a>-->
-                        <button type="submit">确认并填写订单</button>
+                        <a href="" class="go">返回上一步</a>
+                        <a href="javascript:addOrder();" class="op">确认收货地址</a>
                     </div>
                 </td>
             </tr>
             </tfoot>
         </table>
-        </form>
         <!-- 购物车列表 End -->
-    </div>
-    <!-- 购物车有商品 end -->
 
+        <script>
+            //添加订单
+            function addOrder(){
+                //选择的收货地址id
+                var aid = $("input[name='aid'][type='radio']:checked").val();
+                //选择的购物车id
+                var cidinputs = $("input[name='cid'][type='hidden']");
+                //创建一个数组
+                var cids = [];
+
+                for(var i = 0; i < cidinputs.length; i++){
+                    cids.push(cidinputs[i].value);
+                }
+
+                //ajax提交给后台
+                $.ajax({
+                    type:"POST",
+                    url:"order/insert",
+                    data:{"aid":aid, "cids":cids},
+                    success:function(data){
+                        if(data == 1){
+                            // alert("去支付");
+                            location.href = "http://localhost:8082";
+                        }
+                    }
+                });
+            }
+        </script>
+
+    </div>
 </div>
 <!-- 购物车 Body End -->
 
@@ -273,7 +368,7 @@
         </p>
     </div>
     <div class="shop_footer_copy">
-        <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
+        <p>Copyright 2007-2013 ShopCZ Inc.,All rights reserved.<br />d by ShopCZ 2.4 </p>
     </div>
 </div>
 <!-- Footer End -->
