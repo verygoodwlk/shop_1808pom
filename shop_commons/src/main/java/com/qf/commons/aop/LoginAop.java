@@ -97,7 +97,7 @@ public class LoginAop {
         //获得原来的参数列表
         Object[] args = proceedingJoinPoint.getArgs();
         for (int i = 0; i < args.length; i++) {
-            if(args[i].getClass() == User.class){
+            if(args[i] != null && args[i].getClass() == User.class){
                 args[i] = user;
             }
         }

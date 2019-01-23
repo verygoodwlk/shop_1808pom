@@ -12,6 +12,8 @@ spring:
     password: admin
     port: 5672
     virtual-host: /admin
+  redis:
+    host: 192.168.226.180
 dubbo:
   application:
     name: goods_service
@@ -24,3 +26,6 @@ dubbo:
     check: false
   provider:
     timeout: 10000
+#配置mybatis-plus的映射文件扫描
+mybatis-plus:
+  mapper-locations: classpath:com/qf/dao/mapper/*.xml

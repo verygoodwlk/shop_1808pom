@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.dao.ICartDao">
+
+    <resultMap id="BaseResultMap" type="com.qf.entity.Cart">
+        <id column="id" property="id"/>
+        <result column="gid" property="gid"/>
+        <result column="uid" property="uid"/>
+        <result column="gnumber" property="gnumber"/>
+
+        <!-- 对一 -->
+        <association property="goods" javaType="com.qf.entity.Goods">
+            <id column="gid" property="id"/>
+            <result column="title" property="title"/>
+            <result column="gimage" property="gimage"/>
+            <result column="price" property="price"/>
+            <result column="gcount" property="gcount"/>
+        </association>
+    </resultMap>
+
+    <select id="queryCartsByUid" resultMap="BaseResultMap">
+      select * from shopcart s join goods g on s.gid = g.id
+        where s.uid = #{uid}
+    </select>
+</mapper>

@@ -16,6 +16,37 @@
     <script type="text/javascript" src="http://localhost:8086/js/login.js"></script>
 
 
+    <script type="text/javascript">
+        $(function(){
+            //通过ajax去后台获取相应的购物车列表
+            $.ajax({
+                url:"http://localhost:8088/cart/showlist",
+                success:function(data){
+                    if(data != null && data.length > 0){
+                        $("#bid").html(data.length);
+
+                        //有购物车信息
+                        var html = "<ul>";
+
+                        for(var i = 0; i < data.length; i++){
+                            html += "<li>";
+                            html += "<img style='width: 40px; height: 30px' src='http://192.168.226.180/" + data[i].goods.gimage + "'/><br/>";
+                            html += "<span>" + data[i].goods.title + "</span>&nbsp;&nbsp;";
+                            html += "<span>*" + data[i].gnumber + "</span>";
+                            html += "</li>";
+                        }
+
+                        html += "</ul>";
+
+                        $("#cartdiv").html(html);
+                    }
+                },
+                dataType:"jsonp",
+                jsonpCallback: "cartlist"
+            });
+        });
+    </script>
+
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -61,15 +92,9 @@
 
                     <li>
                         <div class="topNav_menu">
-                            <a href="#" class="topNavHover">购物车<b>0</b>种商品<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--
-                                <ul>
-                                  <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                  <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                                -->
-                                <p>还没有商品，赶快去挑选！</p>
+                            <a href="http://localhost:8088/cart/cartlist" class="topNavHover">购物车<b id="bid">0</b>种商品<i></i></a>
+                            <div class="topNav_menu_bd" style="display:none;" id="cartdiv">
+                                <p >还没有商品，赶快去挑选！</p>
                             </div>
                         </div>
                     </li>

@@ -3,3 +3,11 @@ server:
 spring:
   redis:
     host: 192.168.226.180
+  thymeleaf:
+    cache: false
+dubbo:
+  application:
+    name: shop_cart
+  registry:
+    address: zookeeper://192.168.226.180:2181
+

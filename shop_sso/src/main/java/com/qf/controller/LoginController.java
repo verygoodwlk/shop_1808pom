@@ -3,6 +3,7 @@ package com.qf.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.google.gson.Gson;
 import com.qf.entity.User;
+import com.qf.service.ICartService;
 import com.qf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,6 +29,9 @@ public class LoginController {
     @Reference
     private IUserService userService;
 
+    @Reference
+    private ICartService cartService;
+
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -47,14 +51,19 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(String username, String password, HttpServletResponse response, Model model, String returnUrl){
+    public String login(
+            @CookieValue(value = "cart_token", required = false) String cartToken,
+            String username, String password, HttpServletResponse response, Model model, String returnUrl){
 
         //调用登录的服务
         User user = userService.queryByUserNameAndPassword(username, password);
 
         if(user != null){
-            //登录成功
 
+            //调用购物车服务 - 合并临时购物车
+            cartService.mergeCart(cartToken, user);
+
+            //登录成功
             if(returnUrl == null || "".equals(returnUrl)){
                 returnUrl = "http://localhost:8082";
             }
