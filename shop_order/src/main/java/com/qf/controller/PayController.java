@@ -9,6 +9,7 @@ import com.qf.entity.Orders;
 import com.qf.service.IOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class PayController {
 
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
         alipayRequest.setReturnUrl("http://www.baidu.com");//同步请求，当用户支付完成，页面如何跳转
-        alipayRequest.setNotifyUrl("http://localhost:8089/pay/payok");//异步请求，支付成功与否根据异步请求决定
+        alipayRequest.setNotifyUrl("http://verygoodwlk.xicp.net/pay/payok");//异步请求，支付成功与否根据异步请求决定
         //支付参数
         alipayRequest.setBizContent("{" +
                 "    \"out_trade_no\":\"" + orders.getOrderid() + "\"," +
@@ -80,7 +81,20 @@ public class PayController {
      * 接收支付宝的异步响应
      */
     @RequestMapping("/payok")
-    public void payCompent(){
+    @ResponseBody
+    public String payCompent(String out_trade_no, String trade_status){
         System.out.println("支付宝发送了异步请求");
+        System.out.println("订单号：" + out_trade_no + " 支付结果" + trade_status);
+        //确认那笔订单支付完成
+
+        //如果支付成功，修改订单状态
+        if(trade_status.equals("TRADE_SUCCESS")){
+            //修改订单状态
+            Orders orders = orderService.queryOrderByOid(out_trade_no);
+            orders.setStatus(1);
+            orderService.updateOrderState(orders);
+        }
+
+        return "succ";
     }
 }

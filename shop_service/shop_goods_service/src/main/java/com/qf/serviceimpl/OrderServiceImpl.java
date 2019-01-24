@@ -125,4 +125,9 @@ public class OrderServiceImpl implements IOrderService {
         queryWrapper.eq("orderid", orderid);
         return orderDao.selectOne(queryWrapper);
     }
+
+    @Override
+    public int updateOrderState(Orders orders) {
+        return orderDao.updateById(orders);
+    }
 }

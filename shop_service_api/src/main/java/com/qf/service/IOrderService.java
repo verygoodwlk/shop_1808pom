@@ -17,4 +17,6 @@ public interface IOrderService {
     List<Orders> queryByUid(Integer uid);
 
     Orders queryOrderByOid(String orderid);
+
+    int updateOrderState(Orders orders);
 }
