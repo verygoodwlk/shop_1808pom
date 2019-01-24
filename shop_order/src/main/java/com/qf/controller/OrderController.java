@@ -77,7 +77,7 @@ public class OrderController {
     @RequestMapping("/insert")
     @ResponseBody
     @IsLogin
-    public int insertOrder(Integer aid, @RequestParam("cids[]") Integer[] cids, User user){
+    public String insertOrder(Integer aid, @RequestParam("cids[]") Integer[] cids, User user){
 
         System.out.println("收货地址：" + aid + " 购物车列表：" + Arrays.toString(cids));
 

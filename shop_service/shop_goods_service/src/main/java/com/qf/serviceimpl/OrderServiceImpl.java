@@ -44,7 +44,7 @@ public class OrderServiceImpl implements IOrderService {
      */
     @Override
     @Transactional
-    public int addOrder(Integer aid, Integer[] cids, User user) {
+    public String addOrder(Integer aid, Integer[] cids, User user) {
 
         //根据收货地址的id，查询收货地址详细信息
         QueryWrapper qw = new QueryWrapper();
@@ -90,7 +90,7 @@ public class OrderServiceImpl implements IOrderService {
         //删除购物车
         cartDao.deleteBatchIds(Arrays.asList(cids));
 
-        return 1;
+        return orders.getOrderid();
     }
 
     /**
@@ -117,5 +117,12 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         return orders;
+    }
+
+    @Override
+    public Orders queryOrderByOid(String orderid) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("orderid", orderid);
+        return orderDao.selectOne(queryWrapper);
     }
 }

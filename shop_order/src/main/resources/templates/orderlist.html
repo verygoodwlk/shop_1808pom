@@ -223,11 +223,11 @@
 
                             <td class="dingdan_zongjia" th:rowspan="${#lists.size(order.orderDetils)}" th:if="${orderdetilState.first}">￥<strong th:text="${order.oprice}">25.00</strong><br />(免运费)</td>
                             <td class="digndan_caozuo" th:switch="${order.status}" th:rowspan="${#lists.size(order.orderDetils)}" th:if="${orderdetilState.first}">
-                                <a th:case="0" href="">等待买家付款</a>
-                                <a th:case="1" href="">已付款</a>
-                                <a th:case="2" href="">已发货</a>
-                                <a th:case="3" href="">已收货 去评价</a>
-                                <a th:case="4" href="">已评价</a>
+                                <a th:case="0">未付款<br/> <a th:href="${'/pay/alipay?orderid=' + order.orderid}">去付款</a></a>
+                                <a th:case="1">已付款</a>
+                                <a th:case="2">已发货</a>
+                                <a th:case="3">已收货 去评价</a>
+                                <a th:case="4">已评价</a>
                             </td>
 
                         </tr>

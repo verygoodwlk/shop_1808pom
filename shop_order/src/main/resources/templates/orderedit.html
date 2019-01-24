@@ -342,8 +342,9 @@
                     url:"order/insert",
                     data:{"aid":aid, "cids":cids},
                     success:function(data){
-                        if(data == 1){
+                        if(data != null){
                             // alert("去支付");
+                            window.open("/pay/alipay?orderid=" + data, "_blank");
                             location.href = "http://localhost:8082";
                         }
                     }

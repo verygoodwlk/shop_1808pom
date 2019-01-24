@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.qf</groupId>
-    <artifactId>shop_order</artifactId>
+    <artifactId>alipay_test</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shop_order</name>
+    <name>alipay_test</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -19,10 +19,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -36,24 +32,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.qf</groupId>
-            <artifactId>shop_service_api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.qf</groupId>
-            <artifactId>shop_commons</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>0.2.0</version>
         </dependency>
 
         <!-- 支付宝的依赖包 -->
